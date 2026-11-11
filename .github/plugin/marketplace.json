@@ -1,0 +1,18 @@
+{
+  "name": "building-plugins-workshop",
+  "owner": {
+    "name": "building-plugins-workshop maintainers"
+  },
+  "metadata": {
+    "description": "One portable design-to-web workshop plugin.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "figma-to-web",
+      "description": "Shared design-to-web skill and Figma MCP integration.",
+      "version": "1.0.0",
+      "source": "./"
+    }
+  ]
+}
