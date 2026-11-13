@@ -1,54 +1,43 @@
-# Build a plugin once and use it everywhere with GitHub Copilot!
+# Figma to Web — GitHub Copilot Plugin
 
-A 15-minute lightning session: your existing **5-minute opening**, then a
-**10-minute demo and close**. Package one reusable skill and Figma MCP
-integration, then use that same package in VS Code, Copilot CLI, and Copilot app.
+One plugin packages a **Design-to-Code Agent**, **web-design-guidelines skill**, and **Figma MCP integration**. Use it to turn a Figma frame into an accessible, responsive UI in your own project.
 
-Start with the [demo guide](docs/demo-guide.md) for setup and exact prompts.
-Use the [facilitator script](docs/facilitator-script.md) for timing and transitions.
-No deck file was present in this repository; the script maps to deck sections
-rather than inventing slide numbers.
-
-## What is in the package?
+## What's inside
 
 ```text
-plugin.json                              Agent Plugins 1.0 manifest
-mcp.json                                 Portable Figma MCP configuration
-skills/web-design-guidelines/SKILL.md     Portable, original workshop skill
-com.github.copilot/agents/                Optional Copilot-specific reviewer
-com.github.copilot/rules/                Always-on Copilot-specific guardrails
-.github/plugin/marketplace.json          Catalog for discovery and app install
-demo/                                    Local brief, starter, prepared result
-docs/                                    Demo guide and facilitator script
-scripts/validate.py                      Dependency-free workshop checks
+plugin.json
+mcp.json
+com.github.copilot/agents/design-to-code.agent.md
+skills/web-design-guidelines/SKILL.md
 ```
 
-The shared workflow requires only the skill and MCP server, not the custom
-agent. No hooks, credentials, framework dependencies, or remote assets are bundled.
-The similarly named `web-design-guidelines` skill is self-contained workshop
-content, not a vendored third-party skill.
+- **Agent:** coordinates design retrieval, implementation, and review on supported Copilot clients.
+- **MCP:** provides access to Figma design context after the client is authenticated and connected.
+- **Skill:** supplies reusable UI quality and accessibility guidance.
 
-## Quick local rehearsal
+The skill and MCP configuration use the Agent Plugins 1.0 layout. The custom agent is a Copilot-specific component; exact availability varies by client.
 
-From the repository root, with Python 3 and a current Copilot CLI installed:
+## Try the workshop
 
-```sh
-python3 scripts/validate.py
-copilot --plugin-dir .
-```
+1. Open the separate starter repository: `deployment-pipeline-demo`.
+2. Install or load this plugin in your supported Copilot client. For a local Copilot CLI rehearsal from **this plugin repository**, run `copilot --plugin-dir .` (use your current CLI's supported plugin loading flow).
+3. Connect/authenticate the Figma MCP server if prompted.
+4. Select the `design-to-code` agent where supported, and give it a Figma **frame link** and the target `index.html`.
+5. Ask the agent to implement the design and simulate Build → Test → Deploy.
+6. Open `index.html` in a browser to see the result.
 
-In that CLI session, use the fallback review prompt from the demo guide.
-Open `demo/index.html` directly in a browser to see the starter, or run:
+### Example prompt
 
-```sh
-python3 -m http.server 8000 --bind 127.0.0.1 --directory demo
-```
+> Use the design-to-code agent and the web-design-guidelines skill. Retrieve this Figma frame with Figma MCP: [FRAME_URL]. Implement the design in `index.html` in the open starter repository. Build an interactive local Build → Test → Deploy simulation with accessible status updates, keyboard focus, responsive layout, and reduced-motion support. Do not add dependencies or perform a real deployment. Explain which MCP tools and skill guidance you used.
 
-Visit <http://127.0.0.1:8000/>. The prepared result is at
-<http://127.0.0.1:8000/reference.html>. Stop the server with Ctrl+C.
-The signup is local-only; no email is sent or stored.
+## Client note
 
-**Scope of proof:** offline checks validate package structure, local links, and
-fixture invariants. They do not prove client loading, skill selection, browser
-accessibility, or an authenticated Figma round trip. Complete the three-client
-preflight in the demo guide before presenting those as live results.
+Agent, skill, and MCP discovery can differ across VS Code, Copilot CLI, and Copilot App. Test the exact installation, agent selection, and Figma authentication flow in each client before presenting it live. If a client doesn't expose the custom agent, demonstrate the shared skill/MCP functionality there and state that distinction explicitly.
+
+## Workshop architecture
+
+**Plugin repository** (this repo) → reusable agent, skill, MCP config.  
+**Starter application repository** (`deployment-pipeline-demo`) → intentionally plain HTML app.  
+**Figma** → target appearance, layout, and component states.
+
+No finished implementation is bundled with the public starter app. Keep a private rehearsal copy for a fallback.

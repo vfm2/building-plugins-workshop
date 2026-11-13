@@ -1,9 +1,14 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "figma-to-web",
-  "description": "Turn design context into a focused web UI review with one shared skill and Figma MCP integration.",
+  "description": "Turn Figma designs into accessible, responsive web components with a design-to-code agent, guidelines skill, and Figma MCP.",
   "version": "1.0.0",
   "repository": "https://github.com/vfm2/building-plugins-workshop",
   "license": "MIT",
-  "keywords": ["figma", "web", "accessibility", "workshop"]
+  "keywords": [
+    "figma",
+    "design-to-code",
+    "accessibility",
+    "copilot"
+  ]
 }
